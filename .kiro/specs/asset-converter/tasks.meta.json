@@ -1,0 +1,945 @@
+{
+  "pbtResults": {
+    "10.2 Write property test for attribute range": {
+      "status": "passed",
+      "lastRunTimestamp": 1794939872357
+    },
+    "4.2 Write property test for palette limits": {
+      "status": "passed",
+      "lastRunTimestamp": 1794939877800
+    },
+    "3.3 Write property test for the loader round trip": {
+      "status": "passed",
+      "lastRunTimestamp": 1794939909823
+    },
+    "5.2 Write property test for palette_map consistency": {
+      "status": "passed",
+      "lastRunTimestamp": 1794945553232
+    },
+    "7.3 Write property test for the CHR round trip": {
+      "status": "passed",
+      "lastRunTimestamp": 1794977623576
+    },
+    "8.3 Write property test for the font round trip": {
+      "status": "passed",
+      "lastRunTimestamp": 1794977815182
+    },
+    "9.2 Write property test for nametable range": {
+      "status": "passed",
+      "lastRunTimestamp": 1794977937382
+    },
+    "7.5 Write property test for sprite pair deduplication": {
+      "status": "passed",
+      "lastRunTimestamp": 1794978075337
+    },
+    "12.2 Write property test for flip symmetry": {
+      "status": "passed",
+      "lastRunTimestamp": 1794978094870
+    },
+    "12.3 Write property test for flip involution": {
+      "status": "passed",
+      "lastRunTimestamp": 1794978545728
+    },
+    "12.4 Write property test for SpriteDef decomposition": {
+      "status": "passed",
+      "lastRunTimestamp": 1794981269594
+    }
+  },
+  "executionHistory": {
+    "1.1 Create package skeleton, `errors.py` and `models.py`": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901654780
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901680077
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794939513487
+      }
+    ],
+    "2.1 Implement `converter/manifest.py`": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901656747
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794939517964
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794939716622
+      }
+    ],
+    "2.2 Write unit tests in `tests/test_manifest.py`": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901660693
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794939806699
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794940576574
+      }
+    ],
+    "3.1 Implement `converter/pyxres_loader.py`": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901660884
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794939518270
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794939716729
+      }
+    ],
+    "3.2 Implement the test helper `tests/pyxres_writer.py`": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901661036
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794939519220
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794939717404
+      }
+    ],
+    "3.3 Write property test for the loader round trip": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901661248
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794939806984
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794940580392
+      }
+    ],
+    "3.4 Write unit tests for the loader": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901661387
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794945496722
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794952258492
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794977558014
+      }
+    ],
+    "4.1 Implement `converter/palette.py`": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901661532
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794939519606
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794939717164
+      }
+    ],
+    "4.2 Write property test for palette limits": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901661800
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794939807131
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794940584094
+      }
+    ],
+    "4.3 Write unit tests for palette errors": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901661925
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794945497367
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794952163787
+      }
+    ],
+    "5.1 Implement `converter/palette_map.py`": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901662113
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794939807401
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794940587738
+      }
+    ],
+    "5.2 Write property test for palette_map consistency": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901662249
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794945498049
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794952163930
+      }
+    ],
+    "5.3 Write unit tests for palette_map and layouts": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901662381
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794977564212
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794977734637
+      }
+    ],
+    "6. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901662514
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794990077164
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794995780999
+      }
+    ],
+    "7.1 Implement BG encoding in `converter/chr_encoder.py`": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901662714
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794945498725
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794952164078
+      }
+    ],
+    "7.2 Add sprite encoding to `converter/chr_encoder.py`": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901662848
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794977569347
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794977714809
+      }
+    ],
+    "7.3 Write property test for the CHR round trip": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901663000
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794977574058
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794977719727
+      }
+    ],
+    "7.4 Write property test for BG deduplication": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901663135
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794977748443
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794977978320
+      }
+    ],
+    "7.5 Write property test for sprite pair deduplication": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901663278
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794978007487
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794978193618
+      }
+    ],
+    "7.6 Write unit tests for the CHR_Encoder": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901663414
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794978464213
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794981207404
+      }
+    ],
+    "8.1 Create `converter/data/pyxel_font.py` and `THIRD_PARTY_NOTICES.md`": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901663547
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794939520156
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794939716419
+      }
+    ],
+    "8.2 Implement `converter/font_mapper.py`": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901663718
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794977578761
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794977724522
+      }
+    ],
+    "8.3 Write property test for the font round trip": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901663881
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794977752937
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794977983222
+      }
+    ],
+    "8.4 Write unit tests for font and notices": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901664027
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794978012321
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794978184292
+      }
+    ],
+    "9.1 Implement `converter/nametable.py`": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901664184
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794977583875
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794977729774
+      }
+    ],
+    "9.2 Write property test for nametable range": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901664362
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794977757750
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794977987931
+      }
+    ],
+    "9.3 Write unit tests for the Nametable_Builder": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901664516
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794978017960
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794978198361
+      }
+    ],
+    "10.1 Implement `converter/attribute.py`": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901664743
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794939736771
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794939795223
+      }
+    ],
+    "10.2 Write property test for attribute range": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901664874
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794939807554
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794940591462
+      }
+    ],
+    "10.3 Write unit tests for the Attribute_Builder": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901665018
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794945499047
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794952164226
+      }
+    ],
+    "11. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901665178
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794995785895
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794996003194
+      }
+    ],
+    "12.1 Implement `converter/metasprite.py`": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901665321
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794977762420
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794977965209
+      }
+    ],
+    "12.2 Write property test for flip symmetry": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901665478
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794978022680
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794978188884
+      }
+    ],
+    "12.3 Write property test for flip involution": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901665665
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794978469127
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794981212482
+      }
+    ],
+    "12.4 Write property test for SpriteDef decomposition": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901665829
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794981233012
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794988522287
+      }
+    ],
+    "12.5 Write unit tests for the Metasprite_Builder": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901666002
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794988531859
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794990064898
+      }
+    ],
+    "13.1 Implement `converter/emitter.py`": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901666174
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794977770291
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794977973618
+      }
+    ],
+    "13.2 Write property test for `chr.bin` size": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901666364
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794978212182
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794978459332
+      }
+    ],
+    "13.3 Write unit tests for the Emitter": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901666579
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794978474163
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794981217358
+      }
+    ],
+    "14.1 Implement `converter/converter.py`": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901666767
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794978002836
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794978179301
+      }
+    ],
+    "14.2 Write unit tests in `tests/test_converter.py`": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901666952
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794978478389
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794981222932
+      }
+    ],
+    "15.1 Implement `tests/reference_renderer.py`": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901667128
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794939740409
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794939798565
+      }
+    ],
+    "15.2 Implement the scene generator in `tests/strategies.py`": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901667292
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794978482792
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794981228440
+      }
+    ],
+    "15.3 Write property test for conversion fidelity": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901667486
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794981237670
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794988526925
+      }
+    ],
+    "15.4 Write property test for deterministic conversion": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901667654
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794988536403
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794990070064
+      }
+    ],
+    "15.5 Write unit tests for the reference renderer": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901667817
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794940596866
+      },
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794945492391
+      }
+    ],
+    "16. Final checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794901668007
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794996007860
+      },
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795019730634
+      }
+    ],
+    "1. Set up project scaffolding": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794939513729
+      }
+    ],
+    "2. Implement the Manifest loader and validator": [
+      {
+        "executionId": "ab0a85c4-d8bf-4132-b315-4fe3adf1b768",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794940576769
+      }
+    ],
+    "10. Implement the Attribute_Builder": [
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794952164468
+      }
+    ],
+    "3. Implement the Pyxres_Loader": [
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794977558298
+      }
+    ],
+    "5. Implement palette_map and screen layouts": [
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794977734915
+      }
+    ],
+    "8. Implement bundled font data and the Font_Mapper": [
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794978184525
+      }
+    ],
+    "9. Implement the Nametable_Builder": [
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794978198579
+      }
+    ],
+    "7. Implement the CHR_Encoder": [
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794981207605
+      }
+    ],
+    "13. Implement the Emitter": [
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794981217609
+      }
+    ],
+    "14. Implement the orchestrator and CLI": [
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794981223206
+      }
+    ],
+    "12. Implement the Metasprite_Builder": [
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794990065148
+      }
+    ],
+    "15. Implement the reference renderer and fidelity tests": [
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1794990070273
+      }
+    ],
+    "4. Implement the Palette_Quantizer": [
+      {
+        "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795019745446
+      }
+    ]
+  }
+}

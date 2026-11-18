@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chronomicon"
+version = "0.1.0"
+description = "Raise Pyxel games from the dead onto real 8-bit cartridges."
+requires-python = ">=3.11"
+dependencies = [
+    "tomli; python_version < \"3.11\"",
+    "pyyaml",
+]
+
+[project.optional-dependencies]
+# pyxel is needed only to generate tests/data/sample.pyxres.
+dev = [
+    "pytest",
+    "hypothesis",
+    "pyxel",
+]
+
+[project.scripts]
+chrono = "converter.converter:main"
+
+[tool.setuptools.packages.find]
+include = ["converter*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
