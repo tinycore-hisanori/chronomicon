@@ -1,0 +1,772 @@
+{
+  "pbtResults": {
+    "2.1 Write property test for iNES header and ROM layout": {
+      "status": "passed",
+      "lastRunTimestamp": 1795112959823
+    },
+    "2.3 Write property test for PRG overflow detection": {
+      "status": "passed",
+      "lastRunTimestamp": 1795113359999
+    },
+    "11.2 Write property test for password round trip and shape": {
+      "status": "passed",
+      "lastRunTimestamp": 1795123010998
+    }
+  },
+  "executionHistory": {
+    "1.1 Create the `builder/` package skeleton and packaging": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094305307
+      },
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094337470
+      },
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094912810
+      }
+    ],
+    "1.2 Implement `builder/config.py`": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094305806
+      },
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094924796
+      },
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795112866733
+      }
+    ],
+    "1.3 Implement `builder/tools.py`": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094306345
+      },
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094925466
+      },
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795112876013
+      }
+    ],
+    "1.4 Implement `builder/ines.py`": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094306775
+      },
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094931014
+      },
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795112882872
+      }
+    ],
+    "1.5 Implement `builder/linkmap.py`": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094307435
+      },
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094936752
+      },
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795112889483
+      }
+    ],
+    "1.6 Implement `builder/glue.py`": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094308041
+      },
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094942123
+      },
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795112895546
+      }
+    ],
+    "2.1 Write property test for iNES header and ROM layout": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094308587
+      },
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795112920785
+      },
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795113136771
+      }
+    ],
+    "2.2 Write property test for manifest name validation": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094309025
+      },
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795113137487
+      },
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795113307699
+      }
+    ],
+    "2.3 Write property test for PRG overflow detection": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094309432
+      },
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795113308146
+      },
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795113680456
+      }
+    ],
+    "2.4 Write unit tests for tool discovery and glue generation": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094309792
+      },
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795113679581
+      },
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795115193059
+      }
+    ],
+    "3. Checkpoint - builder core": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094310256
+      },
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795115193806
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795115599525
+      }
+    ],
+    "4.1 Create `runtime/nrom.cfg`": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094310636
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795115785404
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795116088774
+      }
+    ],
+    "4.2 Create `runtime/chrono.h`, `runtime/chrono_zp.h` and `runtime/zp.s`": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094311022
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795115785977
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795116088191
+      }
+    ],
+    "4.3 Create `runtime/crt0.s` (RESET)": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094311453
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795116095975
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795119524597
+      }
+    ],
+    "4.4 Create `runtime/nmi.s` (NMI handler and `vram_apply`)": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094311752
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795116096741
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795119523547
+      }
+    ],
+    "4.5 Create `runtime/screen.s` (`screen_upload` and `load_screen`)": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094312051
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795116103052
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795119526711
+      }
+    ],
+    "5.1 Create `runtime/runtime.c` and `runtime/pad.c`": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094312342
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795116103734
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795119527655
+      }
+    ],
+    "5.2 Create `runtime/oam.c`": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094312644
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795116109577
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795119528376
+      }
+    ],
+    "5.3 Create `runtime/text.c`": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094312952
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795119535197
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795119705477
+      }
+    ],
+    "5.4 Create `runtime/sfx.c`": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094313277
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795119536296
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795119704805
+      }
+    ],
+    "5.5 Create `runtime/password.c`": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094313730
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795119536865
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795119706027
+      }
+    ],
+    "6.1 Implement `builder/build.py`": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094314141
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795119713728
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795121058860
+      }
+    ],
+    "6.2 Implement `builder/cli.py` and the `chrono` script entry": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094314494
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795121060038
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795121564436
+      }
+    ],
+    "6.3 Create ROM fixtures, the sample game and mailbox ROM sources": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094314920
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795121060972
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795121566211
+      }
+    ],
+    "6.4 Write unit tests for CLI routing and exit codes": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094315324
+      }
+    ],
+    "7.1 Create `tests/node/rom_server.js`": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094315716
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795119714293
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795121059595
+      }
+    ],
+    "7.2 Create `tests/rom_harness.py`": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094316086
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795121061494
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795121566899
+      }
+    ],
+    "7.3 Append session fixtures to `tests/conftest.py`": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094316505
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795121567348
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795121894227
+      }
+    ],
+    "7.4 Write unit tests for the harness": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094316903
+      }
+    ],
+    "8.1 Write build integration tests: success, determinism, missing tool": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094317243
+      }
+    ],
+    "8.2 Write build integration test: PRG overflow": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094317586
+      }
+    ],
+    "8.3 Write memory map and vector tests": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094317918
+      }
+    ],
+    "9. Checkpoint - the Runtime builds a ROM": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094318208
+      }
+    ],
+    "10.1 Implement rule functions and tests for S1 to S5 plus S6": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094318659
+      }
+    ],
+    "10.2 Write property test for the NMI call graph checker": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094319042
+      }
+    ],
+    "10.3 Write static structure tests": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094319394
+      }
+    ],
+    "11.1 Create `tests/password_ref.py`": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094319816
+      },
+      {
+        "executionId": "9e0d4ebe-862f-4ae7-911e-3e6261dd3d2a",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795122922370
+      },
+      {
+        "executionId": "9e0d4ebe-862f-4ae7-911e-3e6261dd3d2a",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795122953709
+      }
+    ],
+    "11.2 Write property test for password round trip and shape": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094320243
+      },
+      {
+        "executionId": "9e0d4ebe-862f-4ae7-911e-3e6261dd3d2a",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795122957854
+      },
+      {
+        "executionId": "9e0d4ebe-862f-4ae7-911e-3e6261dd3d2a",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795123025044
+      }
+    ],
+    "11.3 Write property test for single-substitution detection": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094320712
+      }
+    ],
+    "11.4 Write property test for password rejection": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094321082
+      }
+    ],
+    "11.5 Write property test for the C password code against the oracle": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094321481
+      }
+    ],
+    "12.1 Create `tests/models.py`": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094321823
+      }
+    ],
+    "12.2 Create `tests/frame_compare.py`": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094322165
+      },
+      {
+        "executionId": "9e0d4ebe-862f-4ae7-911e-3e6261dd3d2a",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795122076408
+      },
+      {
+        "executionId": "9e0d4ebe-862f-4ae7-911e-3e6261dd3d2a",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795122394551
+      }
+    ],
+    "13.1 Write the Boot_Test": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094322683
+      },
+      {
+        "executionId": "9e0d4ebe-862f-4ae7-911e-3e6261dd3d2a",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795122398659
+      },
+      {
+        "executionId": "9e0d4ebe-862f-4ae7-911e-3e6261dd3d2a",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795122918010
+      }
+    ],
+    "13.2 Write RESET, NMI and upload order tests": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094323174
+      }
+    ],
+    "13.3 Write property tests for palette upload and frame comparison": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094323542
+      }
+    ],
+    "13.4 Write property test and example for `load_screen`": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094323958
+      }
+    ],
+    "14.1 Write property test for `text()` queue contents": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094324355
+      }
+    ],
+    "14.2 Write property test for the per-frame VRAM budget": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094324708
+      }
+    ],
+    "14.3 Write property test for `meta_spr`": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094325138
+      }
+    ],
+    "14.4 Write property test for `btn` and `btnp`": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094325489
+      }
+    ],
+    "14.5 Write property test for `sfx`": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094325808
+      }
+    ],
+    "15. Final checkpoint - full suite": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795094326204
+      }
+    ],
+    "1. Builder core modules": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795112895961
+      }
+    ],
+    "2. Builder pure tests": [
+      {
+        "executionId": "12879f9e-83b9-43ce-b5c3-a8e00806f915",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795115194410
+      }
+    ],
+    "6. Build orchestration, CLI and ROM fixtures": [
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795121567932
+      }
+    ],
+    "9. Checkpoint - the sample game ROM builds and runs in tinynes": [
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795121893274
+      },
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795121958679
+      }
+    ],
+    "7. Node driver and pytest harness": [
+      {
+        "executionId": "e0ebf158-0b14-400d-a830-e7d0817e7a49",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795121895320
+      }
+    ],
+    "12. Test models and frame comparison helpers": [
+      {
+        "executionId": "9e0d4ebe-862f-4ae7-911e-3e6261dd3d2a",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795122395038
+      }
+    ],
+    "13. Boot test and PPU behaviour tests": [
+      {
+        "executionId": "9e0d4ebe-862f-4ae7-911e-3e6261dd3d2a",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795122918626
+      }
+    ],
+    "11. Password oracle and property tests": [
+      {
+        "executionId": "9e0d4ebe-862f-4ae7-911e-3e6261dd3d2a",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795123025660
+      }
+    ],
+    "15. Final checkpoint - run the required tests (Boot_Test and password round trip)": [
+      {
+        "executionId": "9e0d4ebe-862f-4ae7-911e-3e6261dd3d2a",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795123039280
+      },
+      {
+        "executionId": "9e0d4ebe-862f-4ae7-911e-3e6261dd3d2a",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795123463469
+      }
+    ]
+  }
+}

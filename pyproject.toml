@@ -21,10 +21,10 @@ dev = [
 ]
 
 [project.scripts]
-chrono = "converter.converter:main"
+chrono = "builder.cli:main"
 
 [tool.setuptools.packages.find]
-include = ["converter*"]
+include = ["converter*", "builder*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

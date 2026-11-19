@@ -1,0 +1,307 @@
+{
+  "name": "tyv_preview",
+  "game_sources": [
+    "main.c"
+  ],
+  "prg_kb": 32,
+  "mirroring": "vertical",
+  "pyxres_files": [
+    "../ten_years_vow/ten_years_vow.pyxres"
+  ],
+  "nes_colors": {
+    "0": 15,
+    "1": 1,
+    "2": 4,
+    "3": 28,
+    "4": 7,
+    "5": 18,
+    "6": 33,
+    "7": 48,
+    "8": 22,
+    "9": 39,
+    "10": 40,
+    "11": 43,
+    "12": 34,
+    "13": 16,
+    "14": 37,
+    "15": 54
+  },
+  "bg_palettes": {
+    "bg_stone": [
+      0,
+      1,
+      13,
+      7
+    ],
+    "bg_wood": [
+      0,
+      1,
+      9,
+      10
+    ],
+    "bg_sky": [
+      0,
+      5,
+      6,
+      7
+    ],
+    "bg_red": [
+      0,
+      1,
+      8,
+      15
+    ]
+  },
+  "sprite_palettes": {
+    "sp_knight": [
+      0,
+      1,
+      10,
+      7
+    ],
+    "sp_bone": [
+      0,
+      1,
+      13,
+      7
+    ],
+    "sp_demon": [
+      0,
+      2,
+      8,
+      14
+    ],
+    "sp_fire": [
+      0,
+      8,
+      9,
+      10
+    ]
+  },
+  "bg_palette_regions": [
+    {
+      "image_bank": 0,
+      "u": 0,
+      "v": 0,
+      "w": 128,
+      "h": 32,
+      "palette": "bg_stone"
+    },
+    {
+      "image_bank": 0,
+      "u": 0,
+      "v": 32,
+      "w": 128,
+      "h": 32,
+      "palette": "bg_wood"
+    },
+    {
+      "image_bank": 0,
+      "u": 0,
+      "v": 64,
+      "w": 128,
+      "h": 32,
+      "palette": "bg_sky"
+    },
+    {
+      "image_bank": 0,
+      "u": 0,
+      "v": 96,
+      "w": 128,
+      "h": 32,
+      "palette": "bg_red"
+    }
+  ],
+  "sprites": [
+    {
+      "name": "knight_idle",
+      "image_bank": 1,
+      "u": 0,
+      "v": 0,
+      "w": 16,
+      "h": 32,
+      "palette": "sp_knight"
+    },
+    {
+      "name": "knight_walk1",
+      "image_bank": 1,
+      "u": 16,
+      "v": 0,
+      "w": 16,
+      "h": 32,
+      "palette": "sp_knight"
+    },
+    {
+      "name": "knight_walk2",
+      "image_bank": 1,
+      "u": 32,
+      "v": 0,
+      "w": 16,
+      "h": 32,
+      "palette": "sp_knight"
+    },
+    {
+      "name": "knight_jump",
+      "image_bank": 1,
+      "u": 48,
+      "v": 0,
+      "w": 16,
+      "h": 32,
+      "palette": "sp_knight"
+    },
+    {
+      "name": "knight_attack",
+      "image_bank": 1,
+      "u": 64,
+      "v": 0,
+      "w": 16,
+      "h": 32,
+      "palette": "sp_knight"
+    },
+    {
+      "name": "slash",
+      "image_bank": 1,
+      "u": 80,
+      "v": 0,
+      "w": 16,
+      "h": 16,
+      "palette": "sp_fire"
+    },
+    {
+      "name": "skeleton_a",
+      "image_bank": 1,
+      "u": 0,
+      "v": 32,
+      "w": 16,
+      "h": 32,
+      "palette": "sp_bone"
+    },
+    {
+      "name": "skeleton_b",
+      "image_bank": 1,
+      "u": 16,
+      "v": 32,
+      "w": 16,
+      "h": 32,
+      "palette": "sp_bone"
+    },
+    {
+      "name": "bat_a",
+      "image_bank": 1,
+      "u": 0,
+      "v": 64,
+      "w": 16,
+      "h": 16,
+      "palette": "sp_demon"
+    },
+    {
+      "name": "bat_b",
+      "image_bank": 1,
+      "u": 16,
+      "v": 64,
+      "w": 16,
+      "h": 16,
+      "palette": "sp_demon"
+    },
+    {
+      "name": "demon_a",
+      "image_bank": 1,
+      "u": 0,
+      "v": 80,
+      "w": 32,
+      "h": 32,
+      "palette": "sp_demon"
+    },
+    {
+      "name": "demon_b",
+      "image_bank": 1,
+      "u": 32,
+      "v": 80,
+      "w": 32,
+      "h": 32,
+      "palette": "sp_demon"
+    },
+    {
+      "name": "heart",
+      "image_bank": 1,
+      "u": 0,
+      "v": 112,
+      "w": 8,
+      "h": 16,
+      "palette": "sp_fire"
+    },
+    {
+      "name": "fireball",
+      "image_bank": 1,
+      "u": 8,
+      "v": 112,
+      "w": 8,
+      "h": 16,
+      "palette": "sp_fire"
+    }
+  ],
+  "screens": [
+    {
+      "tilemap": 2,
+      "x": 0,
+      "y": 0,
+      "count": 1,
+      "hud_tilemap": 2,
+      "hud_x": 0,
+      "hud_y": 0
+    },
+    {
+      "tilemap": 0,
+      "x": 0,
+      "y": 0,
+      "count": 4,
+      "hud_tilemap": 1,
+      "hud_x": 0,
+      "hud_y": 0,
+      "objects": [
+        {
+          "name": "knight_idle",
+          "x": 40,
+          "y": 176,
+          "screen": 0
+        },
+        {
+          "name": "skeleton_a",
+          "x": 200,
+          "y": 176,
+          "screen": 0
+        },
+        {
+          "name": "skeleton_a",
+          "x": 120,
+          "y": 176,
+          "screen": 1
+        },
+        {
+          "name": "bat_a",
+          "x": 200,
+          "y": 96,
+          "screen": 1
+        },
+        {
+          "name": "bat_a",
+          "x": 96,
+          "y": 80,
+          "screen": 2
+        },
+        {
+          "name": "bat_a",
+          "x": 176,
+          "y": 72,
+          "screen": 2
+        },
+        {
+          "name": "demon_a",
+          "x": 176,
+          "y": 160,
+          "screen": 3
+        }
+      ]
+    }
+  ]
+}

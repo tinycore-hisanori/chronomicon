@@ -19,8 +19,7 @@ inclusion: always
   `tests/data/make_sample_pyxres.py` (to generate the sample `.pyxres`).
 - Tests: `tests/conftest.py` registers Hypothesis profiles `dev` (default, `max_examples=25`)
   and `ci` (`max_examples=200`), selected with the `HYPOTHESIS_PROFILE` environment variable.
-  The full suite must finish within 60 seconds with the `dev` profile; check slow tests with
-  `.venv\Scripts\python -m pytest --durations=10` and keep generated data small.
+  There is no fixed time budget for the suite (dropped for the deadline); keep generated data small.
 - ROM toolchain: **cc65 2.19** (`cc65`, `ca65`, `ld65`) installed at `C:\cc65\bin` and on PATH, and Node 20+ (installed: v24) for the boot test.
   **Never download or install toolchains or system tools.** Ask the user before adding any dependency (Python, npm or C).
 

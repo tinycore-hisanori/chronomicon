@@ -111,6 +111,10 @@ def _read_raw(path: Path) -> dict:
     return raw
 
 
+# Public alias used by the ROM builder to read extra manifest fields.
+read_manifest_table = _read_raw
+
+
 def _parse_nes_colors(raw: dict) -> dict[int, int]:
     if "nes_colors" not in raw or raw["nes_colors"] is None:
         raise ConversionError("Manifest is missing required field 'nes_colors'")

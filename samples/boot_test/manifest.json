@@ -1,0 +1,91 @@
+{
+  "name": "boot_test",
+  "game_sources": [
+    "main.c"
+  ],
+  "prg_kb": 32,
+  "mirroring": "vertical",
+  "pyxres_files": [
+    "boot_test.pyxres"
+  ],
+  "nes_colors": {
+    "0": 15,
+    "1": 17,
+    "2": 33,
+    "3": 49,
+    "4": 22,
+    "5": 38,
+    "6": 54,
+    "7": 26,
+    "8": 42,
+    "9": 58,
+    "10": 18,
+    "11": 34,
+    "12": 20,
+    "13": 36,
+    "14": 23,
+    "15": 39
+  },
+  "bg_palettes": {
+    "bg0": [
+      0,
+      5,
+      6,
+      7
+    ],
+    "bg1": [
+      0,
+      8,
+      9,
+      10
+    ]
+  },
+  "sprite_palettes": {
+    "sp0": [
+      0,
+      11,
+      12,
+      13
+    ]
+  },
+  "bg_palette_regions": [
+    {
+      "image_bank": 0,
+      "u": 0,
+      "v": 0,
+      "w": 32,
+      "h": 8,
+      "palette": "bg0"
+    },
+    {
+      "image_bank": 0,
+      "u": 0,
+      "v": 8,
+      "w": 32,
+      "h": 8,
+      "palette": "bg1"
+    }
+  ],
+  "sprites": [
+    {
+      "name": "player",
+      "image_bank": 1,
+      "u": 0,
+      "v": 0,
+      "w": 8,
+      "h": 16,
+      "palette": "sp0"
+    }
+  ],
+  "screens": [
+    {
+      "tilemap": 0,
+      "x": 0,
+      "y": 0,
+      "count": 2,
+      "hud_tilemap": 1,
+      "hud_x": 0,
+      "hud_y": 0
+    }
+  ]
+}
