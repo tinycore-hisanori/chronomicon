@@ -14,6 +14,11 @@ allowed (missing ones are never referenced by valid input).
 
 Output: a list of 240 rows, each a list of 256 NES color bytes.
 
+:func:`upload_palette` emulates $2007 writes into the 32-byte palette RAM
+(address ``addr & 0x1F``; $3F10/$3F14/$3F18/$3F1C mirror $3F00/$3F04/$3F08/
+$3F0C; values masked to 6 bits) and returns ``(bg_palettes, sprite_palettes)``
+in the shape accepted by :func:`render_nes_frame`.
+
 Attribute table layout (standard): byte ``(ty // 4) * 8 + (tx // 4)``, each
 byte holds four 2-bit palette numbers for 2x2-tile blocks: bits 1:0 top-left,
 3:2 top-right, 5:4 bottom-left, 7:6 bottom-right.
@@ -112,6 +117,30 @@ def render_nes_frame(
                     continue
                 frame[y][x] = pal[idx]
     return frame
+
+
+def _palette_index(addr: int) -> int:
+    index = addr & 0x1F
+    if (index & 0x13) == 0x10:
+        index &= 0x0F
+    return index
+
+
+def upload_palette(
+    data: bytes, start: int = 0x3F00
+) -> tuple[list[list[int]], list[list[int]]]:
+    """Write ``data`` byte by byte into palette RAM like $2007 writes.
+
+    Returns ``(bg_palettes, sprite_palettes)``: 4 palettes of 4 colors each.
+    """
+    ram = [0] * 32
+    for i, value in enumerate(data):
+        ram[_palette_index(start + i)] = value & 0x3F
+    flat = [ram[_palette_index(0x3F00 + i)] for i in range(32)]
+    return (
+        [flat[i : i + 4] for i in range(0, 16, 4)],
+        [flat[i : i + 4] for i in range(16, 32, 4)],
+    )
 
 
 def build_oam(

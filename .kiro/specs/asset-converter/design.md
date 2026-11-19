@@ -160,7 +160,7 @@ chronomicon/
 │   ├── __init__.py
 │   ├── strategies.py             # shared Hypothesis strategies
 │   ├── pyxres_writer.py          # test helper: write_pyxres(path, banks, tilemaps)
-│   ├── reference_renderer.py     # test support: render_nes_frame (NES-style reference renderer)
+│   ├── reference_renderer.py     # test support: render_nes_frame, upload_palette (NES-style reference renderer)
 │   ├── data/
 │   │   └── sample.pyxres         # real file saved by Pyxel, for the layout smoke test
 │   ├── test_manifest.py
@@ -173,6 +173,7 @@ chronomicon/
 │   ├── test_attribute.py
 │   ├── test_metasprite.py
 │   ├── test_emitter.py
+│   ├── test_reference_renderer.py
 │   ├── test_converter.py         # error handling, exit codes, atomic output
 │   └── test_fidelity.py          # determinism and fidelity properties
 ├── check_nes.py                  # static checker for the 8-bit subset
@@ -485,7 +486,10 @@ const unsigned char palette_bg[16] = {
     0x0f,0x16,0x27,0x30,  0x0f,0x01,0x21,0x31,
     0x0f,0x19,0x29,0x39,  0x0f,0x06,0x16,0x26
 };
-const unsigned char palette_sprite[16] = { /* ... */ };
+const unsigned char palette_sprite[16] = {
+    0x0f,0x16,0x27,0x30,  0x0f,0x01,0x21,0x31,
+    0x0f,0x0f,0x0f,0x0f,  0x0f,0x0f,0x0f,0x0f
+};
 
 const unsigned char metasprite_player[] = {
     0, 0, 0x03, 0,
@@ -501,6 +505,20 @@ const unsigned char metasprite_player_flip[] = {
 ```
 
 Names are `metasprite_<name>` and `metasprite_<name>_flip`, where `<name>` is the SpriteDef name (validated to be a C identifier by the Manifest loader). The example is for a 16x16 sprite (`w = 16`), where `x' = 16 - 8 - x`.
+
+**Palette arrays and the palette mirror** (Requirements 9.6, 9.7). The PPU palette RAM mirrors $3F10, $3F14, $3F18 and $3F1C onto $3F00, $3F04, $3F08 and $3F0C. When `palette_bg` and `palette_sprite` are uploaded as 32 consecutive bytes from $3F00, byte 0 of each sprite palette therefore overwrites the backdrop, so every one of those bytes must equal the common background color. Sprite color 0 is transparent, so this changes no visible pixel.
+
+```python
+def palette_arrays(palette_set: PaletteSet) -> tuple[list[int], list[int]]:
+    """Return (bg, sprite), each 16 NES bytes. Public: used by build_assets_h, the
+    orchestrator log and the tests.
+    1. Convert every palette with nes_colors and pad each array to 16 bytes:
+       missing BG entries and palettes use the backdrop (common background color),
+       missing sprite entries and palettes use 0x0F.
+    2. Write the backdrop into offsets 0, 4, 8 and 12 of BOTH arrays."""
+```
+
+`build_assets_h` takes its `palette_bg` and `palette_sprite` bytes only from `palette_arrays`.
 
 **`nametable_N.s`**:
 
@@ -547,7 +565,7 @@ flowchart TD
 
 Cleanup strategy: stages before the Emitter create no files. The Emitter owns the only temporary directory and removes it in its own `finally` block. `convert` catches `ConversionError`, prints `error: <message>` and returns 1 (10). Non-`ConversionError` exceptions are not swallowed, but the Emitter's `finally` still removes the temporary directory. After a failure `out_dir` is byte-for-byte what it was before the run.
 
-The success log lists, for each of `chr.bin`, every `nametable_N.s`, `assets.h` (which carries palettes and metasprites), the byte length and CRC-32 in hexadecimal (6.3). The log also reports the CRC-32 of the individual nametable, attribute table, palette and metasprite blocks computed before formatting.
+The success log lists, for each of `chr.bin`, every `nametable_N.s`, `assets.h` (which carries palettes and metasprites), the byte length and CRC-32 in hexadecimal (6.3). The log also reports the CRC-32 of the individual nametable, attribute table, palette and metasprite blocks computed before formatting. The two palette CRC-32 lines are computed over the bytes returned by `emitter.palette_arrays` (Requirements 6.3, 9.7), so they match what `assets.h` contains. The former private palette byte helper in `converter.py` is removed.
 
 ---
 
@@ -775,6 +793,19 @@ Sprite pass (8x16 mode), applied in reverse OAM order so lower OAM indices end o
 4. In-sprite index 0 is transparent. Otherwise the pixel color is `sprite_palettes[attr & 3][index]`. Bit 5 (behind background) hides the sprite pixel where the BG index is not 0.
 5. The 8-sprites-per-scanline limit is not emulated. Scenes used by the property keep to the project limit (at most 8 per scanline).
 
+Palette RAM is modelled by a second helper, so tests see the palettes the hardware would see:
+
+```python
+def upload_palette(data: bytes, start: int = 0x3F00
+                   ) -> tuple[list[tuple[int, int, int, int]], list[tuple[int, int, int, int]]]:
+    """Write data byte by byte like $2007 writes into a 32-byte palette RAM, then read
+    the RAM back as (bg_palettes, sprite_palettes), four 4-byte palettes each.
+    Address rule for writes and reads: addr &= 0x1F; if (addr & 0x13) == 0x10: addr &= 0x0F.
+    Stored values are masked to 6 bits."""
+```
+
+`upload_palette` is the only way tests obtain palettes from emitted data (Requirement 10.4). Property 11 calls `upload_palette(bytes(bg + sprite))` with the arrays from `palette_arrays` and passes the result to `render_nes_frame`.
+
 The OAM list for a scene is built by a test helper (`build_oam(metasprite, display_x, display_y)`) from the converter's own metasprite table. For each placement, each hardware sprite becomes the raw OAM entry `(display_y - 1 + y_offset, oam_tile, attributes, display_x + x_offset)` with signed offsets. Placing the flipped variant uses the `metasprite_<name>_flip` data. The resulting OAM Y byte must be in 0-239 (a Y byte of 240 or more puts the sprite below the visible area, where the renderer clips it). The scene generator avoids placements that would need an OAM Y of -1, that is, a display Y of 0 with a zero y offset.
 
 Note: the y offsets in the converter's metasprite data (`assets.h`) are display offsets. The `-1` correction for the PPU's one-row sprite delay is the responsibility of the runtime (which writes `display_y - 1` to OAM, and also reads the object table `y` as display Y) and of this test helper. It is not part of `assets.h`.
@@ -849,9 +880,9 @@ After the prework analysis, redundant candidates were merged: CHR round trip and
 
 ### Property 11: Conversion fidelity
 
-*For any* valid Pyxel scene (tiles, sprites placements and tilemaps within the 8-bit subset), the NES color byte at every pixel of the NES-style render of the converted output (CHR, palettes, nametable, attribute table, and metasprites for sprites) equals the NES color byte obtained by converting the original Pyxel image pixel by pixel through `nes_colors`.
+*For any* valid Pyxel scene (tiles, sprites placements and tilemaps within the 8-bit subset), the NES color byte at every pixel of the NES-style render of the converted output (CHR, palettes obtained by `upload_palette(bg + sprite)` of the emitted `palette_arrays`, nametable, attribute table, and metasprites for sprites) equals the NES color byte obtained by converting the original Pyxel image pixel by pixel through `nes_colors`.
 
-**Validates: Requirements 10.1, 10.2**
+**Validates: Requirements 10.1, 10.2, 10.4**
 
 ### Property 12: Pyxres loader round trip
 
@@ -876,6 +907,12 @@ After the prework analysis, redundant candidates were merged: CHR round trip and
 *For any* `SpriteDef` with `w` a multiple of 8 and `h` a multiple of 16, the decomposition has exactly `(w/8) * (h/16)` cells, in row-major order, with offsets `(8*cx, 16*cy)`.
 
 **Validates: Requirements 12.5**
+
+### Property 16: Palette mirror invariant
+
+*For any* valid `PaletteSet`, uploading the 32 bytes `palette_arrays(palette_set)` (BG array then sprite array) from $3F00 through `upload_palette` leaves the backdrop at $3F00 equal to the common background color, and bytes 0, 4, 8 and 12 of both arrays equal the common background color.
+
+**Validates: Requirements 9.6, 9.7**
 
 ---
 
@@ -907,7 +944,7 @@ PBT applies to this module: the stages are pure functions (encoders, builders, a
 
 ### Dual approach
 
-- **Property tests** (Hypothesis) check the 15 properties above. Each property is one test, configured with `@settings(max_examples=100)` or more, and tagged with a comment of the form `# Feature: asset-converter, Property N: <title>`.
+- **Property tests** (Hypothesis) check the 16 properties above. Each property is one test, configured with `@settings(max_examples=100)` or more, and tagged with a comment of the form `# Feature: asset-converter, Property N: <title>`.
 - **Unit tests** (pytest) cover concrete examples, boundaries and every error message listed in Error Handling. Keep them few and specific: the properties already cover wide input ranges.
 
 ### Property test design
@@ -929,6 +966,7 @@ PBT applies to this module: the stages are pure functions (encoders, builders, a
 | 13 palette_map | `test_palette_map.py` | non-overlapping rectangle regions that tile the used part of the bank, tilemap cells referencing tiles inside them. Compare each cell to the region palette computed independently by a direct rectangle test. |
 | 14 Flip involution | `test_metasprite.py` | widths 8..64 in steps of 8, up to 16 hardware sprites with signed offsets, any attribute byte. `flip(flip(m)) == m`; one flip keeps `y` and tile. |
 | 15 Decomposition | `test_metasprite.py` | `w` in multiples of 8, `h` in multiples of 16. Cell count and row-major offsets. |
+| 16 Palette mirror | `test_emitter.py` | valid `PaletteSet` with 1-4 palettes of 1-4 colors per kind. `bg, sprite = palette_arrays(ps)`; both have 16 bytes, offsets 0/4/8/12 equal the common background color, and `upload_palette(bytes(bg + sprite))` returns BG palette 0 color 0 equal to it. |
 
 ### Fidelity test (Property 11)
 
@@ -953,7 +991,8 @@ Assertion: `(a) == (b)` at every pixel. The test also checks that for every spri
 - **Emitter** (`test_emitter.py`): `assets.h` snapshot including the `128` terminator and `(unsigned char)-8` style negatives; `nametable_N.s` snapshot (960 + 64 `.byte` values); creates a missing `out_dir`. Object table snapshots: no `objects` gives only `.byte $ff`; items on different `screen` indices land in the right file in Manifest order with `.byte x, y, metasprite_index` followed by `$ff`; the metasprite index is the SpriteDef position in `sprites`.
 - **Atomic output** (`test_converter.py`): inject a failure in the middle of the emit step and in an earlier stage; `out_dir` contents and mtimes are unchanged, the temporary directory is gone, exit code is 1. A successful run after a failed one replaces files completely.
 - **Font and notices**: importing `converter` in a subprocess with `pyxel` blocked in `sys.modules` succeeds and converts a sample; `THIRD_PARTY_NOTICES.md` exists and contains the MIT permission sentence and the Pyxel project name.
-- **Logging**: a successful run logs byte length and CRC-32 for each generated asset (6.3).
+- **Logging**: a successful run logs byte length and CRC-32 for each generated asset (6.3). The palette CRC-32 lines equal the CRC-32 of the bytes from `palette_arrays` (9.7).
+- **Reference renderer** (`test_reference_renderer.py`): `upload_palette` unit tests. With the old layout (sprite palette color 0 different from the backdrop), uploading 32 bytes from $3F00 clobbers $3F00 through the mirror. With the arrays from `palette_arrays` the backdrop is kept. Also: writes starting at another address follow the mirror rule, and stored values are masked to 6 bits.
 
 ### Test support
 

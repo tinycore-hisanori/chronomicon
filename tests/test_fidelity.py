@@ -10,16 +10,9 @@ from pathlib import Path
 from hypothesis import given
 
 from converter.converter import convert, run_pipeline
-from converter.emitter import DEFAULT_SPRITE_COLOR, _common_bg_color, _palette_bytes
-from tests.reference_renderer import build_oam, render_nes_frame
+from converter.emitter import palette_arrays
+from tests.reference_renderer import build_oam, render_nes_frame, upload_palette
 from tests.strategies import valid_scenes, write_scene
-
-
-def _palettes(result):
-    ps = result.palette_set
-    bg = _palette_bytes(ps.bg, ps.nes_colors, _common_bg_color(ps))
-    spr = _palette_bytes(ps.sprite, ps.nes_colors, DEFAULT_SPRITE_COLOR)
-    return [bg[i : i + 4] for i in range(0, 16, 4)], [spr[i : i + 4] for i in range(0, 16, 4)]
 
 
 def _oam_for(scene, result, screen):
@@ -38,7 +31,8 @@ def test_conversion_fidelity(scene):
         manifest_path = write_scene(scene, tmp)
         result, _emit = run_pipeline(None, manifest_path, tmp + "/out")
 
-    bg_pal, sp_pal = _palettes(result)
+    bg, spr = palette_arrays(result.palette_set)
+    bg_pal, sp_pal = upload_palette(bytes(bg + spr))
     by_screen = {n.screen_index: n for n in result.nametables}
     attrs = {a.screen_index: a for a in result.attr_tables}
     assert scene.num_screens == len(result.nametables)

@@ -240,3 +240,76 @@ def test_8x16_table_selected_by_tile_bit0_and_pair_by_upper_bits():
     assert even[1][0] == SPR_PALS[0][1] and even[16][0] == SPR_PALS[0][1]
     assert odd[1][0] == SPR_PALS[0][2]  # table 1, top tile 4
     assert odd[9][0] == SPR_PALS[0][3]  # table 1, bottom tile 5
+
+
+# ---------------------------------------------------------------------------
+# upload_palette: palette RAM mirroring (Requirements 9.7, 10.4)
+# ---------------------------------------------------------------------------
+
+from converter.emitter import palette_arrays  # noqa: E402
+from converter.models import PaletteDef, PaletteSet  # noqa: E402
+from tests.reference_renderer import upload_palette  # noqa: E402
+
+
+@pytest.mark.parametrize("sprite_addr,bg_addr", [
+    (0x3F10, 0x3F00), (0x3F14, 0x3F04), (0x3F18, 0x3F08), (0x3F1C, 0x3F0C),
+])
+def test_sprite_color0_write_lands_in_bg_mirror(sprite_addr, bg_addr):
+    bg, spr = upload_palette(b"\x21", start=sprite_addr)
+    idx = (bg_addr - 0x3F00) // 4
+    assert bg[idx][0] == 0x21
+    assert spr[idx][0] == 0x21
+
+
+def test_palette_address_wraps_at_32_bytes():
+    bg, _ = upload_palette(b"\x25", start=0x3F20)
+    assert bg[0][0] == 0x25
+
+
+def test_palette_values_masked_to_6_bits():
+    bg, _ = upload_palette(b"\xe1\x7f", start=0x3F00)
+    assert bg[0][0] == 0x21
+    assert bg[0][1] == 0x3F
+
+
+def test_old_layout_clobbers_backdrop_with_sprite_color0():
+    bg_arr = [0x0F] * 16
+    spr_arr = [0x01] * 16
+    for i, v in zip((0, 4, 8, 12), (0x16, 0x27, 0x30, 0x12)):
+        spr_arr[i] = v
+    bg, spr = upload_palette(bytes(bg_arr + spr_arr))
+    # The sprite writes to $3F10/14/18/1C land last in $3F00/04/08/0C.
+    assert [p[0] for p in bg] == [0x16, 0x27, 0x30, 0x12]
+    assert [p[0] for p in spr] == [0x16, 0x27, 0x30, 0x12]
+    assert bg[0][0] != 0x0F
+    # Non-mirrored entries are untouched.
+    assert bg[0][1:] == [0x0F] * 3
+    assert spr[0][1:] == [0x01] * 3
+
+
+def _new_layout_set() -> PaletteSet:
+    return PaletteSet(
+        bg=(PaletteDef("bg0", (1, 2, 3, 4)), PaletteDef("bg1", (1, 5, 6, 7))),
+        sprite=(PaletteDef("sp0", (8, 9, 10)),),
+        nes_colors={1: 0x21, 2: 0x11, 3: 0x12, 4: 0x13, 5: 0x14, 6: 0x15,
+                    7: 0x16, 8: 0x27, 9: 0x28, 10: 0x29},
+    )
+
+
+def test_new_layout_keeps_backdrop_equal_to_common_bg_color():
+    bg_arr, spr_arr = palette_arrays(_new_layout_set())
+    bg, spr = upload_palette(bytes(bg_arr + spr_arr))
+    backdrop = bg_arr[0]
+    assert backdrop == 0x21
+    assert [p[0] for p in bg] == [backdrop] * 4
+    assert [p[0] for p in spr] == [backdrop] * 4
+    # Distinct sprite colors still survive in the non-mirrored slots.
+    assert spr[0][1:] != bg[0][1:]
+
+
+def test_render_blank_frame_uses_uploaded_backdrop():
+    bg_arr, spr_arr = palette_arrays(_new_layout_set())
+    bg, spr = upload_palette(bytes(bg_arr + spr_arr))
+    frame = render_nes_frame(bytes(8192), [0] * 960, [0] * 64, bg, spr, [])
+    assert len(frame) == 240 and all(len(r) == 256 for r in frame)
+    assert {px for row in frame for px in row} == {bg_arr[0]}

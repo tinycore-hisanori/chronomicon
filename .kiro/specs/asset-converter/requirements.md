@@ -53,6 +53,7 @@ The module covers the following:
 - **Background pattern table**: The CHR area $0000-$0FFF (up to 256 tiles = 4096 bytes). It stores BG tiles.
 - **Sprite pattern table**: The CHR area $1000-$1FFF (up to 256 tiles = 4096 bytes). It stores sprite tiles.
 - **Common background color**: The single NES 2C02 palette byte that is color 0 of all four NES BG palettes.
+- **Palette mirror**: The NES PPU palette RAM behavior in which addresses $3F10, $3F14, $3F18 and $3F1C are hardware mirrors of $3F00, $3F04, $3F08 and $3F0C. A write to one of the sprite addresses lands in the corresponding backdrop-side address, so byte 0 of each sprite palette overwrites the backdrop color when the 32 palette bytes are uploaded in one go starting at $3F00.
 - **8x16 sprite pair**: The upper tile and lower tile of one NES 8x16 sprite. Deduplication and flip sharing treat the pair as one unit.
 - **oam_meta_spr format**: The metasprite data format read by NESLib `oam_meta_spr`. It is a sequence of 4-byte groups (x_offset, y_offset, tile, attr), terminated by the single byte 128. The x_offset and y_offset values are signed bytes.
 - **Flip symmetry**: The property that drawing with the horizontal flip flag gives the same result as a pixel-wise mirrored copy of the original tile.
@@ -205,6 +206,8 @@ The module covers the following:
 3. WHEN the conversion completes successfully, THE Converter SHALL output, for each screen index N (starting at 0), a file `nametable_N.s` that describes the nametable (960 bytes), the attribute table (64 bytes) and the objects table of the screen in ca65 assembly data format. The objects table lists the Manifest `objects` items that target the screen (initial sprite placements, as defined in Requirement 14), and contains only the terminator byte $ff when no item targets the screen.
 4. THE Converter SHALL keep the invariant that the size of `chr.bin` is always 8192 bytes.
 5. THE Emitter SHALL first write all output files into a temporary directory, and only after the conversion has completed successfully SHALL move them into the output directory. IF the output directory does not exist, THEN THE Emitter SHALL create it before moving the files.
+6. THE Converter SHALL write the common background color into byte 0 of every BG palette and every sprite palette in `assets.h`, that is offsets 0, 4, 8 and 12 of both `palette_bg` and `palette_sprite`, including padded palettes. Because sprite color 0 is transparent, this affects only the backdrop color.
+7. WHEN `palette_bg` and then `palette_sprite` are uploaded as 32 consecutive bytes starting at $3F00 (subject to the Palette mirror), THE Converter SHALL emit arrays for which the backdrop color read back from $3F00 equals the common background color (palette mirror invariant). The CRC-32 log of palettes (Requirement 6.3) SHALL use these emitted bytes.
 
 ---
 
@@ -217,6 +220,7 @@ The module covers the following:
 1. WHEN any valid Pyxel scene (a combination of tiles, sprites and tilemaps satisfying the 8-bit subset constraints) is converted, THE Converter SHALL produce output for which sequence (a) equals sequence (b) at every pixel coordinate. Sequence (a) is the original Pyxel image converted pixel by pixel to NES color bytes through `nes_colors`. Sequence (b) is the NES-style re-render of the converted output (CHR data, palettes, nametable and attribute table, plus the metasprites for sprites). Both sequences consist of NES color bytes (conversion fidelity property).
 2. THE Converter SHALL implement the conversion fidelity property as a Hypothesis property-based test (PBT) that is checked automatically on randomly generated valid Pyxel scene samples.
 3. WHEN a CHR encode/decode round-trip is executed for any valid tile data, THE CHR_Encoder SHALL produce a decoded result that matches the original color index array bit for bit (CHR round-trip PBT).
+4. THE reference renderer used by the tests SHALL model palette RAM with the Palette mirror (a write to $3F10, $3F14, $3F18 or $3F1C lands in $3F00, $3F04, $3F08 or $3F0C respectively), and the conversion fidelity property SHALL obtain its BG and sprite palettes by uploading the emitted `palette_bg` and `palette_sprite` arrays through that model.
 
 ---
 

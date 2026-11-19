@@ -25,7 +25,6 @@ from converter.models import (
     ConversionResult,
     EmitResult,
     MetaspriteTable,
-    PaletteDef,
     PaletteSet,
     Resources,
 )
@@ -33,14 +32,6 @@ from converter.models import (
 
 def _crc_line(name: str, data: bytes) -> str:
     return f"{name}: {len(data)} bytes, crc32={zlib.crc32(data) & 0xFFFFFFFF:08x}"
-
-
-def _palette_bytes(palettes: tuple[PaletteDef, ...], nes_colors: dict[int, int]) -> bytes:
-    out = bytearray()
-    for pal in palettes:
-        colors = [nes_colors[c] & 0xFF for c in pal.pyxel_colors]
-        out += bytes((colors + [0] * 4)[:4])
-    return bytes(out)
 
 
 def _metasprite_blocks(table: MetaspriteTable) -> list[tuple[str, bytes]]:
@@ -66,9 +57,9 @@ def _asset_log_lines(result: ConversionResult, emit: EmitResult) -> list[str]:
         lines.append(_crc_line(f"nametable[{nt.screen_index}]", bytes(nt.tile_ids)))
     for at in result.attr_tables:
         lines.append(_crc_line(f"attr[{at.screen_index}]", at.data))
-    ps = result.palette_set
-    lines.append(_crc_line("palette_bg", _palette_bytes(ps.bg, ps.nes_colors)))
-    lines.append(_crc_line("palette_sprite", _palette_bytes(ps.sprite, ps.nes_colors)))
+    bg, spr = emitter.palette_arrays(result.palette_set)
+    lines.append(_crc_line("palette_bg", bytes(bg)))
+    lines.append(_crc_line("palette_sprite", bytes(spr)))
     for name, data in _metasprite_blocks(result.metasprites):
         lines.append(_crc_line(name, data))
     return lines

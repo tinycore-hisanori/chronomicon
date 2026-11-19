@@ -269,6 +269,33 @@ The converter is a Python 3 package `converter/` with tests under `tests/` (pyte
 - [x] 16. Final checkpoint - Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
+- [x] 17. Fix the palette mirror (seed section 0)
+  - [x] 17.1 Add `palette_arrays` to the Emitter and use it for `assets.h` and the log
+    - Add `palette_arrays(palette_set)` to `converter/emitter.py`, returning `(bg, sprite)` as 16 NES bytes each, with the common backdrop color at offsets 0, 4, 8 and 12 of both arrays
+    - Make `build_assets_h` take `palette_bg` and `palette_sprite` only from `palette_arrays`
+    - In `converter/converter.py`, compute the two palette CRC-32 log lines from the bytes returned by `palette_arrays` and remove the private palette byte helper
+    - Update the `assets.h` snapshot in `tests/test_emitter.py`
+    - _Requirements: 9.6, 9.7, 6.3_
+
+  - [x] 17.2 Add `upload_palette` to the reference renderer and use it in the fidelity test
+    - Implement `upload_palette(data, start=0x3F00)` in `tests/reference_renderer.py`: write byte by byte into a 32-byte palette RAM, apply the $3F10/$3F14/$3F18/$3F1C to $3F00/$3F04/$3F08/$3F0C mirror, mask values to 6 bits, and return the BG and sprite palettes
+    - In `tests/test_fidelity.py`, obtain the palettes passed to `render_nes_frame` through `upload_palette(bytes(bg + sprite))` with the arrays from `palette_arrays`
+    - _Requirements: 10.4_
+
+  - [x] 17.3 Write property test for the palette mirror invariant
+    - **Property 16: Palette mirror invariant**
+    - **Validates: Requirements 9.6, 9.7**
+    - In `tests/test_emitter.py`: for a valid `PaletteSet` with 1-4 palettes of 1-4 colors per kind, both arrays have 16 bytes, offsets 0, 4, 8, 12 equal the common background color, and `upload_palette(bytes(bg + sprite))` leaves $3F00 equal to it
+
+  - [x] 17.4 Write unit tests for the palette mirror
+    - In `tests/test_reference_renderer.py`: a write to $3F10 lands in $3F00
+    - Uploading an old-style layout (sprite color 0 different from the backdrop) clobbers the backdrop
+    - Uploading the `palette_arrays` output in order keeps the backdrop, and an empty screen renders in the backdrop color
+    - _Requirements: 9.7, 10.4_
+
+- [x] 18. Checkpoint - Ensure all tests pass
+  - Ensure all tests pass, ask the user if questions arise. The suite must finish within 60 seconds with the dev profile.
+
 ## Notes
 
 - All tasks, including property-based tests and unit tests, are required
@@ -292,7 +319,9 @@ The converter is a Python 3 package `converter/` with tests under `tests/` (pyte
     { "id": 6, "tasks": ["7.5", "8.4", "9.3", "12.2", "13.2", "14.1"] },
     { "id": 7, "tasks": ["7.6", "12.3", "13.3", "14.2", "15.2"] },
     { "id": 8, "tasks": ["12.4", "15.3"] },
-    { "id": 9, "tasks": ["12.5", "15.4"] }
+    { "id": 9, "tasks": ["12.5", "15.4"] },
+    { "id": 10, "tasks": ["17.1", "17.2"] },
+    { "id": 11, "tasks": ["17.3", "17.4"] }
   ]
 }
 ```

@@ -1,14 +1,13 @@
-﻿---
+---
 inclusion: always
 ---
 # Technical ground rules
 
 ## Toolchain
 - Python 3 + `pyxel` (source games, asset loading), `pillow`
-- `cc65` (cl65 / ca65 / ld65) + **NESLib** (zlib licence) for the runtime
-- Headless verification: `nes-py` or our own browser player `tinynes` (Node-compatible `nes.js`)
-- Linker config: NROM-256 (PRG 32KB at $8000, CHR 8KB), `oam_off` must be a ZEROPAGE symbol
-  defined in C (`#pragma bss-name (push,"ZEROPAGE")`) because NESLib's display.sinc imports it
+- `cc65` 2.19 (cc65 / ca65 / ld65). The runtime is our own implementation in `runtime/` (no NESLib).
+- Headless verification: our own emulator `tinynes` (`web/nes.js`, runs under Node).
+- Linker config: `runtime/nrom.cfg` for NROM (PRG 32KB at $8000 or 16KB at $C000, CHR 8KB).
 
 ## Development environment (hard rules)
 - Python **3.12**. Always use the project virtual environment at `.venv` in the repo root.
@@ -22,6 +21,9 @@ inclusion: always
   and `ci` (`max_examples=200`), selected with the `HYPOTHESIS_PROFILE` environment variable.
   The full suite must finish within 60 seconds with the `dev` profile; check slow tests with
   `.venv\Scripts\python -m pytest --durations=10` and keep generated data small.
+- ROM toolchain: **cc65 2.19** (`cc65`, `ca65`, `ld65`) installed at `C:\cc65\bin` and on PATH, and Node 20+ (installed: v24) for the boot test.
+  **Never download or install toolchains or system tools.** Ask the user before adding any dependency (Python, npm or C).
+
 ## Target hardware limits (the "8-bit subset" a Pyxel game must respect)
 | Item | Rule |
 |---|---|
@@ -54,6 +56,11 @@ A static checker (`check_nes.py`) must reject games that break these rules **bef
    instead of duplicating tiles.
 8. Mirroring naming: iNES "vertical mirroring" = CIRAM A10 ← PPU A10. Nintendo's own board pads use
    the opposite letters. Our cartridge board labels follow iNES.
+9. Any zero-page symbol shared between C and asm must be declared in C with `#pragma zpsym`.
+10. `$3F10/$3F14/$3F18/$3F1C` mirror `$3F00/$3F04/$3F08/$3F0C`: byte 0 of every BG and sprite palette must be
+    the common backdrop color, or a 32-byte palette upload overwrites the backdrop.
+11. Sprites appear one line below their OAM Y: write OAM Y = display Y - 1.
+12. Writes to `$2006/$2007` outside vblank corrupt the screen; only `load_screen` (rendering off) may write large blocks.
 
 ## Testing expectations
 - Every converter stage gets unit tests; invariants get **property-based tests** (Hypothesis):

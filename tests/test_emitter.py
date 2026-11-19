@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 import tempfile
 import zlib
 from pathlib import Path
@@ -95,7 +96,7 @@ def test_chr_bin_always_8192_bytes(result: ConversionResult) -> None:
 
 import pytest  # noqa: E402
 
-from converter.emitter import build_assets_h, build_nametable_s  # noqa: E402
+from converter.emitter import build_assets_h, build_nametable_s, palette_arrays  # noqa: E402
 from converter.models import ObjectDef, ScreenDef  # noqa: E402
 
 
@@ -145,8 +146,8 @@ def test_assets_h_snapshot() -> None:
         "    0x11,0x11,0x11,0x11,  0x11,0x11,0x11,0x11\n"
         "};\n"
         "const unsigned char palette_sprite[16] = {\n"
-        "    0x16,0x27,0x30,0x0f,  0x0f,0x0f,0x0f,0x0f,\n"
-        "    0x0f,0x0f,0x0f,0x0f,  0x0f,0x0f,0x0f,0x0f\n"
+        "    0x11,0x27,0x30,0x0f,  0x11,0x0f,0x0f,0x0f,\n"
+        "    0x11,0x0f,0x0f,0x0f,  0x11,0x0f,0x0f,0x0f\n"
         "};\n"
         "\n"
         "const unsigned char metasprite_hero[] = {\n"
@@ -181,6 +182,13 @@ def test_assets_h_pads_missing_palettes_and_colors() -> None:
         metasprites=MetaspriteTable(entries=()),
     ))
     assert "    0x11,0x11,0x11,0x11,  0x11,0x11,0x11,0x11,\n" in text2
+
+
+def test_palette_arrays_backdrop_mirror() -> None:
+    bg, spr = palette_arrays(_small_result().palette_set)
+    for i in (0, 4, 8, 12):
+        assert bg[i] == spr[i] == 0x11
+    assert len(bg) == len(spr) == 16
 
 
 def test_nametable_snapshot_no_objects() -> None:
@@ -294,3 +302,63 @@ def test_emit_failure_keeps_previous_files_and_removes_temp(
 
     assert {p.name: p.read_bytes() for p in out.iterdir()} == before
     assert not list(tmp_path.glob(".chrono-*"))
+
+
+# --- Property 16: Palette mirror invariant ---------------------------------------------
+
+from tests.reference_renderer import upload_palette  # noqa: E402
+
+
+@st.composite
+def _palette_sets(draw) -> PaletteSet:
+    shared0 = draw(st.integers(0, 15))
+    n_bg = draw(st.integers(1, 4))
+    n_sp = draw(st.integers(0, 4))
+    bg = []
+    for i in range(n_bg):
+        rest = draw(st.lists(st.integers(0, 15), min_size=0, max_size=3))
+        bg.append(PaletteDef(f"bg{i}", (shared0, *rest)))
+    sprite = []
+    for i in range(n_sp):
+        cols = draw(st.lists(st.integers(0, 15), min_size=1, max_size=4))
+        sprite.append(PaletteDef(f"sp{i}", tuple(cols)))
+    used = {c for p in (*bg, *sprite) for c in p.pyxel_colors}
+    nes = {c: draw(st.integers(0, 0x3F)) for c in used}
+    return PaletteSet(bg=tuple(bg), sprite=tuple(sprite), nes_colors=nes)
+
+
+def _hex_bytes(text: str, name: str) -> list[int]:
+    start = text.index(f"const unsigned char {name}[16] = {{")
+    body = text[start : text.index("};", start)]
+    return [int(tok, 16) for tok in re.findall(r"0x([0-9a-fA-F]{2})", body)]
+
+
+# Feature: asset-converter, Property 16: Palette mirror invariant
+# **Validates: Requirements 9.6, 9.7**
+@given(ps=_palette_sets())
+def test_palette_mirror_invariant(ps: PaletteSet) -> None:
+    bg, spr = palette_arrays(ps)
+    assert len(bg) == len(spr) == 16
+    backdrop = ps.nes_colors[ps.bg[0].pyxel_colors[0]]
+    for i in (0, 4, 8, 12):
+        assert bg[i] == spr[i] == backdrop
+
+    # Other bytes: mapped colors, or padding (backdrop for BG, 0x0f for sprites).
+    for kind, arr, pals, pad in (("bg", bg, ps.bg, backdrop), ("sprite", spr, ps.sprite, 0x0F)):
+        for p in range(4):
+            colors = pals[p].pyxel_colors if p < len(pals) else ()
+            for j in range(1, 4):
+                expected = ps.nes_colors[colors[j]] if j < len(colors) else pad
+                assert arr[4 * p + j] == expected, (kind, p, j)
+
+    bg_pals, spr_pals = upload_palette(bytes(bg + spr))
+    assert bg_pals[0][0] == backdrop
+    assert all(p[0] == backdrop for p in spr_pals)
+
+    result = ConversionResult(
+        chr_bin=b"", palette_set=ps, nametables=(), attr_tables=(),
+        metasprites=MetaspriteTable(entries=()),
+    )
+    text = build_assets_h(result)
+    assert _hex_bytes(text, "palette_bg") == bg
+    assert _hex_bytes(text, "palette_sprite") == spr

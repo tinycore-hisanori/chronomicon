@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>tinynes</title>
+<style>
+  :root { --bg:#111317; --panel:#1b1e24; --ink:#e7e9ee; --muted:#8b93a1; --accent:#e0b64a; }
+  @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) { --bg:#f2f3f5; --panel:#fff; --ink:#1b1e24; --muted:#5d6470; --accent:#b0841c; } }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.6 system-ui, "Hiragino Sans", "Yu Gothic", sans-serif; padding: 16px; }
+  .wrap { max-width: 820px; margin: 0 auto; display:flex; flex-direction:column; gap:14px; }
+  h1 { font: 700 20px/1.2 ui-monospace, Menlo, monospace; margin:0; letter-spacing:.06em; }
+  h1 span { color: var(--accent); }
+  .screen { position:relative; background:#000; border-radius:10px; overflow:hidden; aspect-ratio: 256/240; width:100%; }
+  canvas { width:100%; height:100%; image-rendering: pixelated; display:block; }
+  .drop { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center;
+          color:#cfd3da; font: 14px/1.7 ui-monospace, Menlo, monospace; border:2px dashed #3a3f48; border-radius:10px; padding:16px; }
+  .drop.hover { border-color: var(--accent); color: var(--accent); }
+  .bar { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  button, label.btn { background:var(--panel); color:var(--ink); border:1px solid #3a3f48; border-radius:8px; padding:6px 12px; font:inherit; font-size:13px; cursor:pointer; }
+  button:hover, label.btn:hover { border-color: var(--accent); }
+  .muted { color:var(--muted); font-size:13px; }
+  table { border-collapse: collapse; font-size:13px; }
+  td { padding: 2px 10px 2px 0; color: var(--muted); }
+  td kbd { font: 12px ui-monospace, Menlo, monospace; color: var(--ink); background: var(--panel); border:1px solid #3a3f48; border-radius:4px; padding:0 5px; }
+  #err { color:#ff7a6b; font-size:13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>tiny<span>nes</span> <span class="muted" style="font-weight:400;letter-spacing:0">NROM (mapper 0) only</span></h1>
+  <div class="screen" id="screen">
+    <canvas id="cv" width="256" height="240"></canvas>
+    <div class="drop" id="drop">Drop a .nes file here<br>or click to choose one</div>
+  </div>
+  <div class="bar">
+    <label class="btn">Open ROM<input id="file" type="file" accept=".nes" hidden></label>
+    <button id="pause" type="button" disabled>Pause</button>
+    <button id="reset" type="button" disabled>Reset</button>
+    <button id="mute" type="button">Sound: on</button>
+    <span class="muted" id="info"></span>
+  </div>
+  <div id="err"></div>
+  <table>
+    <tr><td>D-pad</td><td><kbd>←</kbd> <kbd>↑</kbd> <kbd>→</kbd> <kbd>↓</kbd></td>
+        <td>A</td><td><kbd>X</kbd> / <kbd>Space</kbd></td><td>B</td><td><kbd>Z</kbd></td>
+        <td>START</td><td><kbd>Enter</kbd></td><td>SELECT</td><td><kbd>Shift</kbd></td></tr>
+  </table>
+  <div class="muted">Gamepads work too (standard mapping). The ROM runs only in your browser and is never uploaded.</div>
+</div>
+<script src="nes.js"></script>
+<script>
+(() => {
+  const cv = document.getElementById("cv"), ctx = cv.getContext("2d");
+  const img = ctx.createImageData(256, 240);
+  const pix = new Uint32Array(img.data.buffer);
+  const $ = (id) => document.getElementById(id);
+  let nes = null, rom = null, running = false, paused = false, muted = false;
+
+  // ---- audio (ring buffer + ScriptProcessor; starts after the first user action)
+  let actx = null, ring = new Float32Array(16384), rHead = 0, rTail = 0;
+  function initAudio() {
+    if (actx) return;
+    try {
+      actx = new (window.AudioContext || window.webkitAudioContext)();
+      const sp = actx.createScriptProcessor(1024, 0, 1);
+      sp.onaudioprocess = (e) => {
+        const out = e.outputBuffer.getChannelData(0);
+        for (let i = 0; i < out.length; i++) {
+          if (rTail !== rHead && !muted && !paused) { out[i] = ring[rTail]; rTail = (rTail + 1) % ring.length; }
+          else out[i] = 0;
+        }
+      };
+      sp.connect(actx.destination);
+      if (nes) nes.sampleRate = actx.sampleRate;
+    } catch (e) { actx = null; }
+  }
+  function pushAudio(s) {
+    for (let i = 0; i < s.length; i++) {
+      const n = (rHead + 1) % ring.length;
+      if (n === rTail) break;            // drop samples on overflow
+      ring[rHead] = s[i] * 1.6; rHead = n;
+    }
+  }
+
+  // ---- input
+  const KEYMAP = { ArrowUp: 16, ArrowDown: 32, ArrowLeft: 64, ArrowRight: 128, KeyX: 1, Space: 1, KeyZ: 2, Enter: 8, ShiftLeft: 4, ShiftRight: 4 };
+  let keys = 0;
+  addEventListener("keydown", (e) => { const b = KEYMAP[e.code]; if (b) { keys |= b; e.preventDefault(); initAudio(); } });
+  addEventListener("keyup", (e) => { const b = KEYMAP[e.code]; if (b) { keys &= ~b; e.preventDefault(); } });
+  function padButtons() {
+    let b = 0;
+    const gp = navigator.getGamepads ? [...navigator.getGamepads()].find(Boolean) : null;
+    if (gp) {
+      const p = (i) => gp.buttons[i] && gp.buttons[i].pressed;
+      if (p(0)) b |= 1; if (p(1) || p(2)) b |= 2; if (p(8)) b |= 4; if (p(9)) b |= 8;
+      if (p(12) || gp.axes[1] < -0.5) b |= 16; if (p(13) || gp.axes[1] > 0.5) b |= 32;
+      if (p(14) || gp.axes[0] < -0.5) b |= 64; if (p(15) || gp.axes[0] > 0.5) b |= 128;
+    }
+    return b;
+  }
+
+  // ---- main loop (paced to 60.0988 fps)
+  const FRAME_MS = 1000 / 60.0988;
+  let last = 0, acc = 0;
+  function loop(t) {
+    if (!running) return;
+    requestAnimationFrame(loop);
+    if (paused) { last = t; return; }
+    acc += Math.min(100, t - (last || t)); last = t;
+    let n = 0;
+    while (acc >= FRAME_MS && n < 4) {
+      nes.pad[0] = keys | padButtons();
+      nes.frame(); acc -= FRAME_MS; n++;
+    }
+    if (n) { pix.set(nes.frameBuffer); ctx.putImageData(img, 0, 0); }
+  }
+
+  function start(bytes, name) {
+    $("err").textContent = "";
+    try {
+      nes = new NES({ sampleRate: actx ? actx.sampleRate : 48000 });
+      nes.audioOut = pushAudio;
+      nes.load(bytes);
+    } catch (e) { $("err").textContent = e.message; return; }
+    rom = bytes;
+    $("drop").style.display = "none";
+    $("pause").disabled = $("reset").disabled = false;
+    const c = nes.cart;
+    $("info").textContent = `${name}  |  PRG ${c.prg.length / 1024}KB / CHR ${c.chrRam ? "RAM" : c.chr.length / 1024 + "KB"} / ${c.vertical ? "vertical" : "horizontal"} mirroring`;
+    if (!running) { running = true; requestAnimationFrame(loop); }
+  }
+  async function openFile(f) { initAudio(); start(new Uint8Array(await f.arrayBuffer()), f.name); }
+
+  $("file").addEventListener("change", (e) => e.target.files[0] && openFile(e.target.files[0]));
+  const drop = $("drop"), screen = $("screen");
+  drop.addEventListener("click", () => $("file").click());
+  screen.addEventListener("dragover", (e) => { e.preventDefault(); drop.classList.add("hover"); });
+  screen.addEventListener("dragleave", () => drop.classList.remove("hover"));
+  screen.addEventListener("drop", (e) => { e.preventDefault(); drop.classList.remove("hover"); const f = e.dataTransfer.files[0]; if (f) openFile(f); });
+  $("pause").addEventListener("click", () => { paused = !paused; $("pause").textContent = paused ? "Resume" : "Pause"; });
+  $("reset").addEventListener("click", () => rom && start(rom, $("info").textContent.split("  |  ")[0]));
+  $("mute").addEventListener("click", () => { initAudio(); muted = !muted; $("mute").textContent = muted ? "Sound: off" : "Sound: on"; });
+
+  // ?rom=xxx.nes auto-loads a ROM from the same folder
+  const q = new URLSearchParams(location.search).get("rom");
+  if (q) fetch(q).then((r) => r.arrayBuffer()).then((b) => start(new Uint8Array(b), q)).catch(() => {});
+  window.__tinynes = { start, get nes() { return nes; } };
+})();
+</script>
+</body>
+</html>

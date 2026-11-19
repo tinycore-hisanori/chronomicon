@@ -43,6 +43,10 @@
     "12.4 Write property test for SpriteDef decomposition": {
       "status": "passed",
       "lastRunTimestamp": 1794981269594
+    },
+    "17.3 Write property test for the palette mirror invariant": {
+      "status": "passed",
+      "lastRunTimestamp": 1795058594482
     }
   },
   "executionHistory": {
@@ -939,6 +943,68 @@
         "executionId": "056e3bc6-991d-4e64-8112-6f2da328dbc3",
         "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
         "timestamp": 1795019745446
+      }
+    ],
+    "17.2 Add `upload_palette` to the reference renderer and use it in the fidelity test": [
+      {
+        "executionId": "6ba2257c-619e-4a55-b44a-b1c4b6e74232",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795038402529
+      },
+      {
+        "executionId": "6ba2257c-619e-4a55-b44a-b1c4b6e74232",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795058541603
+      }
+    ],
+    "17.1 Add `palette_arrays` to the Emitter and use it for `assets.h` and the log": [
+      {
+        "executionId": "6ba2257c-619e-4a55-b44a-b1c4b6e74232",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795038600535
+      }
+    ],
+    "17.3 Write property test for the palette mirror invariant": [
+      {
+        "executionId": "6ba2257c-619e-4a55-b44a-b1c4b6e74232",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795058542189
+      },
+      {
+        "executionId": "6ba2257c-619e-4a55-b44a-b1c4b6e74232",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795064406293
+      }
+    ],
+    "17.4 Write unit tests for the palette mirror": [
+      {
+        "executionId": "6ba2257c-619e-4a55-b44a-b1c4b6e74232",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795058547089
+      },
+      {
+        "executionId": "6ba2257c-619e-4a55-b44a-b1c4b6e74232",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795064412256
+      }
+    ],
+    "17. Fix the palette mirror (seed section 0)": [
+      {
+        "executionId": "6ba2257c-619e-4a55-b44a-b1c4b6e74232",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795064412597
+      }
+    ],
+    "18. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "6ba2257c-619e-4a55-b44a-b1c4b6e74232",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795064412904
+      },
+      {
+        "executionId": "6ba2257c-619e-4a55-b44a-b1c4b6e74232",
+        "chatSessionId": "sess_7f5297b9-fed2-4fc6-824c-6efeb7f12dbc",
+        "timestamp": 1795064453168
       }
     ]
   }
