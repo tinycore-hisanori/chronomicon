@@ -9,8 +9,8 @@ in this repo, and on a real 1983 8-bit home console through a flash cartridge.
 Kiroween 2026 entry, category **Resurrection**: the dead technology is the 8-bit cartridge console and its toolchain.
 Chronomicon brings it back with a modern Python engine and a spec-driven, AI-assisted workflow in Kiro.
 
-- **Play it now:** <https://tinycore-hisanori.github.io/chronomicon/> (the browser player with the demo game)
-- **Demo video:** REPLACE-WITH-YOUTUBE-URL
+- **Play it now:** <https://tinycore-hisanori.github.io/chronomicon/web/> (the browser player with the demo game)
+- **Demo video:** <https://youtu.be/BlGOVQ8NOng>
 - **How Kiro was used:** [docs/KIRO_USAGE.md](docs/KIRO_USAGE.md)
 
 ![The demo game after conversion](docs/images/tyv_preview.png)
