@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "converter-tests",
+      "trigger": "PostFileSave",
+      "matcher": "(converter|builder)[\\\\/].*\\.py$",
+      "action": {
+        "type": "command",
+        "command": ".venv\\Scripts\\python -m pytest -q -x tests"
+      }
+    }
+  ]
+}

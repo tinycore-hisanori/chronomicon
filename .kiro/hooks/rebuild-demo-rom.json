@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "rebuild-demo-rom",
+      "trigger": "PostFileSave",
+      "matcher": "samples[\\\\/]ten_years_vow[\\\\/].*\\.(c|json|pyxres)$",
+      "action": {
+        "type": "command",
+        "command": ".venv\\Scripts\\python -c \"import subprocess, shutil, sys; r = subprocess.call([sys.executable, '-m', 'builder', 'build', 'samples/ten_years_vow/manifest.json']); r == 0 and shutil.copy('build/ten_years_vow.nes', 'web/roms/ten_years_vow.nes'); sys.exit(r)\""
+      }
+    }
+  ]
+}

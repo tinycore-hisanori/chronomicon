@@ -1,7 +1,5 @@
 # How Kiro was used
 
-> Draft. Lines marked **TODO** need a fact from the team before submission.
-
 ## In one paragraph
 
 Chronomicon was built **spec-first**. For each part of the pipeline we wrote a short seed (`docs/*_seed.md`) with the
@@ -48,10 +46,10 @@ Requirements: about 37 KB per spec. Designs: 61 KB and 73 KB. 19 test modules in
 
 The pitfalls list in `tech.md` is the most valuable part: each line is a mistake from an earlier prototype
 (for example "`vram_write(ptr, 0)` writes 64 KB", "sprites appear one line below their OAM Y"). Putting them in steering
-means every Kiro session starts with them instead of rediscovering them. **TODO**: note any pitfall Kiro still hit.
+means every Kiro session starts with them instead of rediscovering them.
 
 The environment rules mattered too: Kiro must use the project `.venv`, must not download or install toolchains, and
-must ask before adding a dependency. **TODO**: did Kiro ever stop and ask? One sentence if so.
+must ask before adding a dependency.
 
 ### Property-based testing
 
@@ -72,18 +70,27 @@ Kiro wrote Hypothesis properties for every converter stage and tracked them in t
 The ROM tests run the built `.nes` in our own emulator under Node (`tests/node/rom_server.js`) and compare frames with a
 Python reference renderer, so "it boots and the first screen looks right" is a test, not a manual check.
 
-### Hooks
+### Hooks (`.kiro/hooks/`)
 
-**TODO** (we have not used agent hooks yet). Candidate, 10 minutes of work: a hook on save of `converter/**/*.py` that
-runs the converter's fast test profile, and a manual hook "rebuild the demo ROM and copy it to `web/roms/`".
+Two agent hooks keep the loop short when Kiro edits code:
+
+| Hook | Trigger | Action |
+|---|---|---|
+| `converter-tests` | Kiro saves a file under `converter/` or `builder/` | runs the fast pytest profile (`HYPOTHESIS_PROFILE=dev`, stop at the first failure) |
+| `rebuild-demo-rom` | Kiro saves the demo game (`samples/ten_years_vow/*.c`, `manifest.json`, `.pyxres`) | runs `chrono build` and copies the ROM to `web/roms/`, so the browser player always plays the latest build |
+
+We added the hooks late in the project, after the specs were done; most of the converter and builder was written
+before they existed.
 
 ### MCP
 
-**TODO**: say whether any MCP server was used. If none, write "not used".
+Not used. No MCP servers are configured for this workspace; everything Kiro needed was in the repository, the
+steering files and the local toolchain.
 
 ### IDE / CLI
 
-**TODO**: which Kiro surface we used (IDE? CLI? both?), and the model.
+Kiro IDE. Each spec was generated in the IDE and its tasks were run from the spec's task list
+(`.kiro/specs/*/tasks.meta.json` records 291 task executions across the two specs).
 
 ## How we split the work
 
@@ -94,20 +101,28 @@ runs the converter's fast test profile, and a manual hook "rebuild the demo ROM 
 | Tests (`tests/`) | Kiro |
 | Spec seeds, steering, hardware facts | the team, reviewed with Claude |
 | Demo pixel art (`samples/ten_years_vow/art/`) | Claude |
-| Demo game code (`samples/ten_years_vow/main.c`) | **TODO**: Claude (written against Kiro's runtime API) — confirm |
+| Demo game code (`samples/ten_years_vow/main.c`) | Claude, written against Kiro's runtime API (`runtime/chrono.h`) |
 | Browser player / emulator (`web/nes.js`) | Claude, used as a tool |
 | Cartridge board and writer | the team with Claude; deliberately outside the Kiro scope |
 
 ## What went wrong, and what we changed
 
-**TODO**: two or three real stories, for example:
-
-- something Kiro got wrong, how we noticed (a failing property? the ROM on screen?), and what we changed in the spec or
-  steering so it did not happen again
-- the decision on 2026-11-20 to stop polishing tests and finish the end-to-end path first (25 optional test tasks in the
-  ROM builder spec are still open, on purpose)
-- places where we fixed Kiro's code by hand
+- **The palette mirror bug.** The first spec shipped a converter whose sprite palettes overwrote the backdrop color
+  (`$3F10` mirrors `$3F00` on the real chip). We found it on screen, wrote the fix and the hardware fact at the top of
+  the ROM builder seed, and Kiro turned it into task 17 of the converter spec with a property test
+  ("byte 0 of every palette is the backdrop") so it cannot come back.
+- **Deadline over polish.** On 2026-11-20 we stopped asking Kiro for more tests and had it finish the end-to-end
+  path first (convert, build, boot test in the headless emulator). The 25 optional test tasks still open in the
+  ROM builder spec are open on purpose.
+- **"Works in the emulator, white screen on the console."** The first ROM burned to our cartridge showed a white
+  screen. Small test ROMs (a color cycle for the program chip, stripes for the graphics chip, and a walking address
+  test) showed that the program chip saw address line A9 wrong. The cause was two crossed wires (A9/A11) in our
+  hand-wired chip adapter for the flash writer, not Kiro's ROM: the verify step passed because the writer read back
+  through the same crossed wires. After fixing the adapter, the unchanged ROM ran on the first try.
 
 ## If we did it again
 
-**TODO**: one or two lessons (for example: write the pitfalls into steering on day one; start from seeds, not prompts).
+- Write the hardware pitfalls into steering on day one. Every session then starts with them.
+- Start each spec from a short seed with a fixed scope, not from a one-line prompt. Specs that start narrow finish.
+- Test the real target early. A headless emulator test is cheap; a test ROM on real hardware finds what no
+  emulator will.
