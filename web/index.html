@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>tinynes</title>
+<title>Chronomicon Player</title>
+<meta name="description" content="Play TEN YEARS' VOW, a Pyxel game raised from the dead into an 8-bit NES-format ROM by Chronomicon.">
 <style>
   :root { --bg:#111317; --panel:#1b1e24; --ink:#e7e9ee; --muted:#8b93a1; --accent:#e0b64a; }
   @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) { --bg:#f2f3f5; --panel:#fff; --ink:#1b1e24; --muted:#5d6470; --accent:#b0841c; } }
@@ -12,7 +13,7 @@
   .wrap { max-width: 820px; margin: 0 auto; display:flex; flex-direction:column; gap:14px; }
   h1 { font: 700 20px/1.2 ui-monospace, Menlo, monospace; margin:0; letter-spacing:.06em; }
   h1 span { color: var(--accent); }
-  .screen { position:relative; background:#000; border-radius:10px; overflow:hidden; aspect-ratio: 256/240; width:100%; }
+  .screen { position:relative; background:#000; border-radius:10px; overflow:hidden; aspect-ratio: 256/240; width:100%; max-width:640px; margin:0 auto; }
   canvas { width:100%; height:100%; image-rendering: pixelated; display:block; }
   .drop { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center;
           color:#cfd3da; font: 14px/1.7 ui-monospace, Menlo, monospace; border:2px dashed #3a3f48; border-radius:10px; padding:16px; }
@@ -25,16 +26,26 @@
   td { padding: 2px 10px 2px 0; color: var(--muted); }
   td kbd { font: 12px ui-monospace, Menlo, monospace; color: var(--ink); background: var(--panel); border:1px solid #3a3f48; border-radius:4px; padding:0 5px; }
   #err { color:#ff7a6b; font-size:13px; }
+  .lead { margin:0; color:var(--muted); }
+  .lead b { color: var(--ink); }
+  button.primary { background: var(--accent); color:#111317; border-color: var(--accent); font-weight:700; }
+  .card { background:var(--panel); border:1px solid #3a3f48; border-radius:10px; padding:10px 14px; font-size:13px; }
+  .card h2 { font-size:14px; margin:0 0 4px; }
+  .card ol { margin:4px 0 0; padding-left:20px; }
+  a { color: var(--accent); }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>tiny<span>nes</span> <span class="muted" style="font-weight:400;letter-spacing:0">NROM (mapper 0) only</span></h1>
+  <h1>CHRONO<span>MICON</span> <span class="muted" style="font-weight:400;letter-spacing:0">8-bit player</span></h1>
+  <p class="lead">Raise your Pyxel games from the dead, onto real 8-bit cartridges. This page plays the ROM that Chronomicon built from
+    <b>TEN YEARS' VOW</b>, a small Pyxel game, in your browser. The same <code>.nes</code> file runs on a real 1983 console from a flash cartridge.</p>
   <div class="screen" id="screen">
     <canvas id="cv" width="256" height="240"></canvas>
-    <div class="drop" id="drop">Drop a .nes file here<br>or click to choose one</div>
+    <div class="drop" id="drop"><div><button id="demo" class="primary" type="button">&#9654; Play TEN YEARS' VOW</button><br><br>or drop any NROM .nes file here</div></div>
   </div>
   <div class="bar">
+    <button id="demo2" type="button">Load the demo</button>
     <label class="btn">Open ROM<input id="file" type="file" accept=".nes" hidden></label>
     <button id="pause" type="button" disabled>Pause</button>
     <button id="reset" type="button" disabled>Reset</button>
@@ -42,12 +53,27 @@
     <span class="muted" id="info"></span>
   </div>
   <div id="err"></div>
-  <table>
+  <div style="overflow-x:auto"><table>
     <tr><td>D-pad</td><td><kbd>←</kbd> <kbd>↑</kbd> <kbd>→</kbd> <kbd>↓</kbd></td>
         <td>A</td><td><kbd>X</kbd> / <kbd>Space</kbd></td><td>B</td><td><kbd>Z</kbd></td>
         <td>START</td><td><kbd>Enter</kbd></td><td>SELECT</td><td><kbd>Shift</kbd></td></tr>
-  </table>
+  </table></div>
   <div class="muted">Gamepads work too (standard mapping). The ROM runs only in your browser and is never uploaded.</div>
+  <div class="card">
+    <h2>TEN YEARS' VOW</h2>
+    Ten years ago a demon took the castle. The princess who escaped trained as a knight, and now she comes back to keep her vow.
+    Four rooms, one boss, a password.
+    <ol>
+      <li>START begins. Left / Right walk, A (<kbd>X</kbd>) jumps, B (<kbd>Z</kbd>) swings the sword.</li>
+      <li>SELECT pauses and shows a 6-letter password. On the title screen, SELECT opens password entry.</li>
+      <li>Want to see the boss straight away? Try the password <b>ASEAAW</b>.</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h2>How this ROM was made</h2>
+    The art was drawn in Pyxel (Python). Chronomicon converted it to 8-bit tiles, palettes and sprites, compiled the game with cc65 and wrote a
+    32 KB + 8 KB NROM image. Source, specs and tests: <a href="https://github.com/tinycore-hisanori/chronomicon">github.com/tinycore-hisanori/chronomicon</a>.
+  </div>
 </div>
 <script src="nes.js"></script>
 <script>
@@ -133,9 +159,14 @@
   }
   async function openFile(f) { initAudio(); start(new Uint8Array(await f.arrayBuffer()), f.name); }
 
+  function loadDemo(e) { if (e) e.stopPropagation(); initAudio();
+    fetch("roms/ten_years_vow.nes").then((r) => { if (!r.ok) throw new Error("demo ROM not found"); return r.arrayBuffer(); })
+      .then((b) => start(new Uint8Array(b), "ten_years_vow.nes")).catch((err) => { $("err").textContent = err.message; }); }
+  $("demo").addEventListener("click", loadDemo);
+  $("demo2").addEventListener("click", loadDemo);
   $("file").addEventListener("change", (e) => e.target.files[0] && openFile(e.target.files[0]));
   const drop = $("drop"), screen = $("screen");
-  drop.addEventListener("click", () => $("file").click());
+  drop.addEventListener("click", (e) => { if (e.target.id !== "demo") $("file").click(); });
   screen.addEventListener("dragover", (e) => { e.preventDefault(); drop.classList.add("hover"); });
   screen.addEventListener("dragleave", () => drop.classList.remove("hover"));
   screen.addEventListener("drop", (e) => { e.preventDefault(); drop.classList.remove("hover"); const f = e.dataTransfer.files[0]; if (f) openFile(f); });

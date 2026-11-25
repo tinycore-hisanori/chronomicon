@@ -35,7 +35,7 @@
 #define E_BOSS       3
 #define MAX_ENEMIES  3
 
-#define BOSS_HP      12
+#define BOSS_HP      10
 
 /* ------------------------------------------------------------------ state */
 static unsigned char state, room, t, rnd;
@@ -373,17 +373,21 @@ static void update_enemy(unsigned char i) {
     if (e_hurt[i]) --e_hurt[i];
     else if (e_hitby[i] != attack_id && sword_hits(x, y, w, h)) {
         e_hitby[i] = attack_id;
-        e_hurt[i] = (e_type[i] == E_BOSS) ? 30 : 12;
+        e_hurt[i] = (e_type[i] == E_BOSS) ? 16 : 12;
         sfx(SFX_HIT);
         if (--e_hp[i] == 0) { defeat(i); if (room == 4) boss_dirty = 1; return; }
-        if (e_type[i] == E_BOSS) boss_dirty = 1;
+        if (e_type[i] == E_BOSS) {
+            boss_dirty = 1;   /* stagger back so the player is not pinned */
+            if (px < x) { if (e_x[i] < e_hi[i]) e_x[i] = (unsigned char)(x + 8); }
+            else if (e_x[i] > e_lo[i]) e_x[i] = (unsigned char)(x - 8);
+        }
         else e_x[i] = facing ? (unsigned char)(x - 8) : (unsigned char)(x + 8);
     }
 
     /* touch */
     if (overlap((unsigned char)(px + 4), (unsigned char)(py() + 4), 8, 28,
                 (unsigned char)(x + 2), (unsigned char)(y + 2), (unsigned char)(w - 4), (unsigned char)(h - 4)))
-        hurt_player(e_type[i] == E_BOSS ? 2 : 1, (unsigned char)(x + (w >> 1)));
+        hurt_player(1, (unsigned char)(x + (w >> 1)));
 }
 
 static void draw_enemy(unsigned char i) {
